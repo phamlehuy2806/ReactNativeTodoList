@@ -1,6 +1,15 @@
 import { createStore, applyMiddleware } from "redux";
-import thunk from 'redux-thunk'
-import { rootReducer  } from "../reducers";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunk from "redux-thunk";
+import TodoReducer from "../reducers/todoReducers";
+import thunkMiddleware from "redux-thunk";
+import { createLogger } from "redux-logger";
 
- const store = createStore(rootReducer, applyMiddleware(thunk));
- export default store;
+const loggerMiddleware = createLogger();
+
+export const store = createStore(
+  TodoReducer,
+  applyMiddleware(thunkMiddleware, loggerMiddleware)
+);
+
+export default store;
